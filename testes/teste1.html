@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Confetes</title>
+    <style>
+        /* Estilos básicos da página */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            background-color: #f4f4f4;
+        }
+
+        .message {
+            font-size: 2em;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            z-index: 1;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message">Confetes em 3... 2... 1...!</div>
+
+    <!-- Biblioteca de confetes -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        function randomConfettiExplosion() {
+            confetti({
+                particleCount: 50,
+                spread: 50,
+                origin: { x: Math.random(), y: Math.random() - 0.2 }
+            });
+        }
+
+        function startConfettiForFiveMinutes() {
+            const duration = 5 * 60 * 1000; // 5 minutos
+            const end = Date.now() + duration;
+
+            const confettiInterval = setInterval(() => {
+                randomConfettiExplosion();
+                if (Date.now() > end) {
+                    clearInterval(confettiInterval);
+                }
+            }, 300);
+        }
+
+        // Inicia os confetes ao carregar a página
+        startConfettiForFiveMinutes();
+    </script>
+</body>
+</html>

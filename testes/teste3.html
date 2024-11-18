@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Animações</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #002244;
+        }
+
+        /* Mensagem especial */
+        .special-message {
+            display: none;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: #FFD700;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fade-in-out 5s ease-in-out infinite;
+        }
+
+        @keyframes fade-in-out {
+            0%, 100% { opacity: 0; }
+            25%, 75% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="special-message" id="specialMessage">Mensagem Especial Aqui!</div>
+
+    <div class="button-container">
+        <button id="startConfettiButton" onclick="startConfettiForFiveMinutes()">Iniciar Confetes por 5 Minutos</button>
+        <button id="startEventButton" onclick="startSpecialEvent()">Iniciar Evento de 24 Horas</button>
+    </div>
+
+    <!-- Biblioteca de confetes -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        function randomConfettiExplosion() {
+            confetti({
+                particleCount: 50,
+                spread: 50,
+                origin: { x: Math.random(), y: Math.random() - 0.2 }
+            });
+        }
+
+        function startConfettiForFiveMinutes() {
+            const duration = 5 * 60 * 1000; // 5 minutos
+            const end = Date.now() + duration;
+            const interval = setInterval(() => {
+                randomConfettiExplosion();
+                if (Date.now() > end) {
+                    clearInterval(interval);
+                }
+            }, 300);
+        }
+
+        function startSpecialEvent() {
+            // Ativar a mensagem especial com animação
+            const messageElement = document.getElementById('specialMessage');
+            messageElement.style.display = 'block';
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 24000); // Mensagem desaparece após 24 segundos
+
+            // Confetes contínuos durante 24 horas
+            const end = Date.now() + (24 * 60 * 60 * 1000); // 24 horas
+            (function frame() {
+                randomConfettiExplosion();
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste do Evento Especial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .counter {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .counter h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .time {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .blink {
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 1); }
+        }
+
+        .special-message {
+            margin-top: 20px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em;
+            color: #FFD700;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #003366;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #002244;
+        }
+    </style>
+</head>
+<body>
+    <div class="counter" id="counter">
+        <h1>Evento Especial</h1>
+        <div class="time" id="time">Teste os efeitos abaixo</div>
+        <button onclick="startSpecialEvent()">Ativar Evento Especial</button>
+        <div class="special-message" id="specialMessage"></div>
+    </div>
+
+    <!-- Biblioteca de Confetes -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // Função para lançar confetes com menos partículas
+        function randomConfettiExplosion() {
+            confetti({
+                particleCount: 75, // Reduzido pela metade
+                spread: 70,
+                origin: { x: Math.random(), y: Math.random() - 0.2 }
+            });
+        }
+
+        // Função para iniciar o evento especial por 24 horas
+        function startSpecialEvent() {
+            const counter = document.getElementById('counter');
+            const messageElement = document.getElementById('specialMessage');
+
+            // Ativar o brilho no contador
+            counter.classList.add('blink');
+
+            // Mostrar mensagem especial original
+            messageElement.innerHTML = "Parabéns por mais um ano juntos!";
+            messageElement.style.display = 'block';
+
+            // Explosões de confetes por 24 horas
+            const duration = 24 * 60 * 60 * 1000; // 24 horas em milissegundos
+            const end = Date.now() + duration;
+
+            // Função de animação dos confetes
+            (function frame() {
+                randomConfettiExplosion();
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+
+            // Manter a mensagem visível por 24 horas
+            setTimeout(() => {
+                counter.classList.remove('blink');
+                messageElement.style.display = 'none';
+            }, duration);
+        }
+    </script>
+</body>
+</html>

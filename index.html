@@ -15,6 +15,7 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             overflow: hidden;
+            position: relative;
             color: #333;
         }
 
@@ -29,7 +30,7 @@
             background: url('./image.webp') no-repeat center center;
             background-size: cover;
             z-index: -1;
-            filter: brightness(0.7); /* Escurece um pouco para destacar o conteúdo */
+            filter: brightness(0.7);
         }
 
         /* Estilo do contador */
@@ -41,30 +42,123 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             max-width: 400px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Título principal */
         .counter h1 {
             font-size: 1.8em;
             font-weight: bold;
             margin-bottom: 20px;
         }
 
-        /* Relógio */
         .time {
             font-size: 2em;
             margin: 10px 0;
             font-weight: 700;
         }
 
-        /* Texto personalizado "R + N" com nova fonte e cor azul escuro */
         .signature {
             margin-top: 20px;
             font-family: 'Pacifico', cursive;
             font-size: 2.5em;
-            color: #003366; /* Azul escuro */
+            color: #003366;
             letter-spacing: 3px;
         }
+
+        /* Brilho no contador durante o evento */
+        .counter.blink {
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 1); }
+        }
+
+        /* Botão para abrir a carta */
+        .letter-button {
+            margin-top: 20px;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+
+        .letter-button:hover {
+            background-color: #002244;
+        }
+
+        /* Modal da carta */
+        .letter-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .letter-content {
+            background: url('./imagemNay.jpg') no-repeat center center;
+            background-size: cover;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5em;
+            color: #fff;
+            line-height: 1.8;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-button {
+            margin-top: 20px;
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        .close-button:hover {
+            background-color: #ff1a1a;
+        }
+
+        /* Mensagem especial com fade-in */
+        .special-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: #FFD700;
+            opacity: 0;
+            animation: fade-in-out 5s ease-in-out;
+            z-index: 2;
+        }
+
+        @keyframes fade-in-out {
+            0%, 100% { opacity: 0; }
+            25%, 75% { opacity: 1; }
+        }
+
     </style>
 </head>
 <body>
@@ -73,6 +167,22 @@
         <h1>Estamos juntos há...</h1>
         <div class="time" id="time"></div>
         <div class="signature">R + N</div>
+        <button class="letter-button" onclick="openLetter()">Leia uma mensagem do meu coração para você</button>
+    </div>
+
+    <!-- Modal da carta -->
+    <div class="letter-modal" id="letterModal">
+        <div class="letter-content">
+            Querida,  
+            <br><br>
+            Não há palavras que descrevam o quanto você significa para mim. Cada momento ao seu lado é especial, e nosso amor é o que ilumina meus dias. Obrigado por ser minha companheira, minha amiga e o amor da minha vida.  
+            <br><br>
+            Amo você mais do que tudo, e mal posso esperar por todos os dias que ainda vamos compartilhar juntos!  
+            <br><br>
+            Com todo o amor do mundo, seu Pastelzinho
+            <br>
+            <button class="close-button" onclick="closeLetter()">Fechar</button>
+        </div>
     </div>
 
     <!-- Biblioteca de confetes -->
@@ -82,30 +192,78 @@
         const startDate = new Date('2024-10-19T15:51:00');
         let confettiInterval = null;
 
-        function startConfetti() {
+        function randomConfettiExplosion() {
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { x: Math.random(), y: Math.random() - 0.2 }
+            });
+        }
+
+        function startConfettiForFiveMinutes() {
+            const duration = 5 * 60 * 1000; // 5 minutos
+            const end = Date.now() + duration;
+
             confettiInterval = setInterval(() => {
-                confetti({
-                    particleCount: 150,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
+                randomConfettiExplosion();
+                if (Date.now() > end) {
+                    clearInterval(confettiInterval);
+                }
             }, 300);
         }
 
-        function stopConfetti() {
-            clearInterval(confettiInterval);
-            confettiInterval = null;
+        function startSpecialEvent() {
+            // Ativar o brilho do contador
+            document.getElementById('counter').classList.add('blink');
+
+            // Mostrar a mensagem especial
+            const messageElement = document.getElementById('specialMessage');
+            const now = new Date();
+            const year = now.getFullYear();
+
+            // Verifica se é o primeiro ano ou outro aniversário
+            if (year === 2025) {
+                messageElement.innerHTML = "Nosso primeiro ano, parabéns!";
+            } else {
+                messageElement.innerHTML = "Parabéns por mais um ano juntos!";
+            }
+            messageElement.style.display = 'block';
+
+            // Explosões aleatórias de confetes por 10 segundos
+            const duration = 10 * 1000; // 10 segundos
+            const end = Date.now() + duration;
+
+            (function frame() {
+                randomConfettiExplosion();
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+
+            // Desativar tudo após 10 segundos
+            setTimeout(() => {
+                document.getElementById('counter').classList.remove('blink');
+                messageElement.style.display = 'none';
+            }, duration);
         }
 
-        function checkAndStartConfetti() {
+        function checkAndStartSpecialEvent() {
             const now = new Date();
             const day = now.getDate();
+            const month = now.getMonth(); // Outubro = 9
             const hour = now.getHours();
             const minute = now.getMinutes();
 
-            if (day === 19 && hour === 15 && minute === 51 && !confettiInterval) {
-                startConfetti();
-                setTimeout(stopConfetti, 5 * 60 * 1000);
+            // Condição para 19 de qualquer mês (confetes por 5 minutos)
+            const isAny19thAt1551 = day === 19 && hour === 15 && minute === 51;
+            if (isAny19thAt1551) {
+                startConfettiForFiveMinutes();
+            }
+
+            // Condição para 19 de outubro (mensagem especial + confetes de 10 segundos)
+            const isOctober19 = isAny19thAt1551 && month === 9;
+            if (isOctober19) {
+                startSpecialEvent();
             }
         }
 
@@ -123,11 +281,19 @@
             document.getElementById("time").innerHTML = 
                 `${years} anos, ${months} meses, ${days} dias, ${hours}:${minutes}:${seconds}`;
 
-            checkAndStartConfetti();
+            checkAndStartSpecialEvent(); // Verifica se é o momento de iniciar o evento especial
         }
 
         setInterval(updateTime, 1000);
         updateTime(); // Executa imediatamente ao carregar
+
+        function openLetter() {
+            document.getElementById('letterModal').style.display = 'flex';
+        }
+
+        function closeLetter() {
+            document.getElementById('letterModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
