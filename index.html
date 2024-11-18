@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contador de Amor</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
         /* Estilos globais */
         body {
@@ -86,7 +87,7 @@
             padding: 12px 25px;
             font-size: 1.2em;
             cursor: pointer;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Merriweather', sans-serif;
             transition: background-color 0.3s;
             display: inline-block;
         }
@@ -107,6 +108,15 @@
             z-index: 10;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Alterado para uma transição mais suave */
+            pointer-events: none; /* Previne interação com a modal antes de ser visível */
+        }
+
+        .letter-modal.show {
+            display: flex;
+            opacity: 1;
+            pointer-events: all; /* Permite interação quando visível */
         }
 
         .letter-content {
@@ -116,7 +126,7 @@
             border-radius: 15px;
             max-width: 600px;
             text-align: center;
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Merriwheather', cursive;
             font-size: 1.5em;
             color: #fff;
             line-height: 1.8;
@@ -159,6 +169,19 @@
             25%, 75% { opacity: 1; }
         }
 
+        /* Estilo da mensagem abaixo do contador */
+    .message {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.2em;
+        margin-top: 10px;
+        color: #003366;
+        text-align: center;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
     </style>
 </head>
 <body>
@@ -167,8 +190,9 @@
         <h1>Estamos juntos há...</h1>
         <div class="time" id="time"></div>
         <div class="signature">R + N</div>
-        <button class="letter-button" onclick="openLetter()">Leia uma mensagem do meu coração para você</button>
-    </div>
+        <div class="message">Eu te amo infinitamente mais a cada segundo desse tempo nosso juntos. 💖</div> <!-- Mensagem abaixo do contador -->
+        <button class="letter-button" onclick="openLetter()">Um presentinho pra vc...</button>
+    </div>   
 
     <!-- Modal da carta -->
     <div class="letter-modal" id="letterModal">
@@ -250,18 +274,17 @@
         function checkAndStartSpecialEvent() {
             const now = new Date();
             const day = now.getDate();
-            const month = now.getMonth(); // Outubro = 9
             const hour = now.getHours();
             const minute = now.getMinutes();
 
-            // Condição para 19 de qualquer mês (confetes por 5 minutos)
+            // Evento especial em 19 de outubro às 15:51
             const isAny19thAt1551 = day === 19 && hour === 15 && minute === 51;
             if (isAny19thAt1551) {
                 startConfettiForFiveMinutes();
             }
 
             // Condição para 19 de outubro (mensagem especial + confetes de 10 segundos)
-            const isOctober19 = isAny19thAt1551 && month === 9;
+            const isOctober19 = isAny19thAt1551 && now.getMonth() === 9;
             if (isOctober19) {
                 startSpecialEvent();
             }
@@ -288,11 +311,11 @@
         updateTime(); // Executa imediatamente ao carregar
 
         function openLetter() {
-            document.getElementById('letterModal').style.display = 'flex';
+            document.getElementById('letterModal').classList.add('show');
         }
 
         function closeLetter() {
-            document.getElementById('letterModal').style.display = 'none';
+            document.getElementById('letterModal').classList.remove('show');
         }
     </script>
 </body>
