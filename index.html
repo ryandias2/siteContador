@@ -170,18 +170,18 @@
         }
 
         /* Estilo da mensagem abaixo do contador */
-    .message {
-        font-family: 'Roboto', sans-serif;
-        font-size: 1.2em;
-        margin-top: 10px;
-        color: #003366;
-        text-align: center;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 10px;
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-    }
+        .message {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #003366;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
@@ -192,7 +192,7 @@
         <div class="signature">R + N</div>
         <div class="message">Eu te amo infinitamente mais a cada segundo desse tempo nosso juntos. 💖</div> <!-- Mensagem abaixo do contador -->
         <button class="letter-button" onclick="openLetter()">Um presentinho pra vc...</button>
-    </div>   
+    </div>
 
     <!-- Modal da carta -->
     <div class="letter-modal" id="letterModal">
@@ -218,8 +218,8 @@
 
         function randomConfettiExplosion() {
             confetti({
-                particleCount: 200,
-                spread: 100,
+                particleCount: 50,
+                spread: 50,
                 origin: { x: Math.random(), y: Math.random() - 0.2 }
             });
         }
@@ -279,9 +279,12 @@
 
             // Evento especial em 19 de outubro às 15:51
             const isAny19thAt1551 = day === 19 && hour === 15 && minute === 51;
-            if (isAny19thAt1551) {
-                startConfettiForFiveMinutes();
+            const isNovember25thAt2311 = now.getFullYear() === 2024 && now.getMonth() === 10 && day === 25 && hour === 23 && minute === 11;
+
+            if (isAny19thAt1551 || isNovember25thAt2311) {
+                startConfettiForFiveMinutes()
             }
+
 
             // Condição para 19 de outubro (mensagem especial + confetes de 10 segundos)
             const isOctober19 = isAny19thAt1551 && now.getMonth() === 9;
