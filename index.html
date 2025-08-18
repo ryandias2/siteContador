@@ -12,9 +12,10 @@
 
     body, html {
       width: 100%;
-      height: 100%;
+      min-height: 100%;
       font-family: 'Roboto', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       color: white;
     }
 
@@ -83,6 +84,11 @@
       border-radius: 8px;
       font-size: 1.2rem;
       cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .letter-button:active {
+      transform: scale(0.95);
     }
 
     /* ===== Modal ===== */
@@ -152,56 +158,55 @@
       }
     }
 
+    /* ===== RESPONSIVIDADE CELULAR ===== */
     @media (max-width: 480px) {
-        body {
-            overflow: visible; /* Permite rolagem caso necessário */
-            font-size: 16px;
-        }
+      #counter {
+        max-width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+      }
 
-        #counter {
-            max-width: 95%;
-            margin: 20px auto;
-            padding: 20px;
-            text-align: center;
-        }
+      #counter h1 {
+        font-size: 1.8rem;
+      }
 
-        #counter h1 {
-            font-size: 1.8rem;
-        }
+      #contador {
+        font-size: 1.4rem;
+        line-height: 2rem;
+      }
 
-        #contador {
-            font-size: 1.5rem;
-            line-height: 2rem;
-        }
+      .signature {
+        font-size: 2rem;
+      }
 
-        .signature {
-            font-size: 2.5rem;
-        }
+      .message {
+        font-size: 1.1rem;
+      }
 
-        .message {
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
+      .letter-button {
+        font-size: 1rem;
+        padding: 10px 18px;
+      }
 
-        .letter-button {
-            font-size: 1.2rem;
-            padding: 12px 20px;
-        }
+      .special-message {
+        font-size: 2rem;
+      }
 
-        .special-message {
-            font-size: 2.5rem;
-            margin-top: 20px;
-        }
+      .modal-content {
+        font-size: 1rem;
+        padding: 20px;
+      }
 
-        .modal-content {
-            font-size: 1rem;
-            padding: 20px;
-        }
+      .background-mosaic {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto auto;
+      }
 
-        .background-mosaic {
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-        }
+      .background-mosaic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   </style>
 </head>
