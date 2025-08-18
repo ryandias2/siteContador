@@ -152,47 +152,50 @@
       }
     }
 
-    /* ===== AJUSTE PARA CELULAR ===== */
     @media (max-width: 480px) {
         body {
             overflow: visible; /* Permite rolagem caso necessário */
+            font-size: 16px;
         }
 
-        .counter {
-            max-width: 90%;
-            padding: 30px;
+        #counter {
+            max-width: 95%;
+            margin: 20px auto;
+            padding: 20px;
             text-align: center;
-            font-family: 'Roboto', sans-serif; /* Mantém igual ao desktop */
         }
 
-        .counter h1 {
-            font-size: 1.8em; /* Igual desktop */
+        #counter h1 {
+            font-size: 1.8rem;
         }
 
-        .time {
-            font-size: 2em; /* Igual desktop */
+        #contador {
+            font-size: 1.5rem;
+            line-height: 2rem;
         }
 
         .signature {
-            font-size: 2.5em; /* Mantém Pacifico */
-        }
-
-        .letter-button {
-            font-size: 1.2em; /* Mantém Merriweather */
-            padding: 12px 25px;
+            font-size: 2.5rem;
         }
 
         .message {
-            font-size: 1.2em; /* Igual desktop */
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .letter-button {
+            font-size: 1.2rem;
+            padding: 12px 20px;
         }
 
         .special-message {
-            font-size: 3em; /* Mantém Great Vibes */
+            font-size: 2.5rem;
+            margin-top: 20px;
         }
 
-        .letter-content {
-            font-size: 1.5em; /* Igual desktop */
-            padding: 30px;
+        .modal-content {
+            font-size: 1rem;
+            padding: 20px;
         }
 
         .background-mosaic {
