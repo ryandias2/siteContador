@@ -152,41 +152,52 @@
       }
     }
 
-    /* ===== MEDIA QUERIES PARA CELULAR ===== */
+    /* ===== AJUSTE PARA CELULAR ===== */
     @media (max-width: 480px) {
+        body {
+            overflow: visible; /* Permite rolagem caso necessário */
+        }
+
         .counter {
             max-width: 90%;
-            padding: 20px;
+            padding: 30px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif; /* Mantém igual ao desktop */
         }
 
         .counter h1 {
-            font-size: 1.4em; /* Mantém Roboto */
+            font-size: 1.8em; /* Igual desktop */
         }
 
         .time {
-            font-size: 1.6em; /* Mantém Roboto */
+            font-size: 2em; /* Igual desktop */
         }
 
         .signature {
-            font-size: 2em; /* Mantém Pacifico */
+            font-size: 2.5em; /* Mantém Pacifico */
         }
 
         .letter-button {
-            font-size: 1em; /* Mantém Merriweather */
-            padding: 8px 16px;
+            font-size: 1.2em; /* Mantém Merriweather */
+            padding: 12px 25px;
         }
 
         .message {
-            font-size: 0.9em; /* Mantém Roboto */
+            font-size: 1.2em; /* Igual desktop */
         }
 
         .special-message {
-            font-size: 2em; /* Mantém Great Vibes */
+            font-size: 3em; /* Mantém Great Vibes */
         }
 
         .letter-content {
-            font-size: 1.2em; /* Mantém Merriweather */
-            padding: 20px;
+            font-size: 1.5em; /* Igual desktop */
+            padding: 30px;
+        }
+
+        .background-mosaic {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
         }
     }
   </style>
