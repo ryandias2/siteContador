@@ -4,10 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nosso Amor</title>
+
+<!-- 🔥 Importação das fontes -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
   /* ===== RESET ===== */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 100%; min-height: 100%; font-family: 'Roboto', sans-serif; color: white; overflow-x: hidden; overflow-y: auto; }
+  html, body { 
+    width: 100%; 
+    min-height: 100%; 
+    font-family: 'Roboto', sans-serif; 
+    color: white; 
+    overflow-x: hidden; 
+    overflow-y: auto; 
+  }
 
   /* ===== FUNDO MOSAICO ===== */
   .background-mosaic {
@@ -33,8 +44,21 @@
   }
   .container h1 { font-size: 2.2rem; margin-bottom: 20px; }
   #contador { font-size: 1.3rem; line-height: 2rem; white-space: pre-line; margin-bottom: 15px; }
-  .signature { font-family: 'Pacifico', cursive; font-size: 2rem; color: #FFD700; margin-top: 10px; }
-  .message { font-size: 1.1rem; margin-top: 10px; }
+
+  /* 🔥 Correção da fonte */
+  .signature { 
+    font-family: 'Pacifico', cursive !important; 
+    font-size: 2rem; 
+    color: #FFD700; 
+    margin-top: 10px; 
+    text-align: center;
+  }
+  .message { 
+    font-family: 'Roboto', sans-serif !important; 
+    font-size: 1.1rem; 
+    margin-top: 10px; 
+    text-align: center;
+  }
 
   /* ===== BOTÕES ===== */
   .letter-button {
@@ -81,8 +105,7 @@
   @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
 
   /* ===== RESPONSIVIDADE ===== */
-    @media (max-width: 600px) {
-    /* 🔥 Mantém igual ao desktop */
+  @media (max-width: 600px) {
     .container { max-width: 600px; margin: 50px auto; padding: 20px; }
     .container h1 { font-size: 2.2rem; }
     #contador { font-size: 1.3rem; line-height: 2rem; }
@@ -91,17 +114,16 @@
     .letter-button { font-size: 1.2rem; padding: 12px 24px; }
     .special-message { font-size: 2rem; }
     .modal-content { font-size: 1.2rem; padding: 30px; }
-    }
+  }
 
-    @media (max-width: 400px) {
-    /* 🔥 Também mantém igual ao desktop */
+  @media (max-width: 400px) {
     .container h1 { font-size: 2.2rem; }
     #contador { font-size: 1.3rem; }
     .signature { font-size: 2rem; }
     .message { font-size: 1.1rem; }
     .letter-button { font-size: 1.2rem; padding: 12px 24px; }
     .special-message { font-size: 2rem; }
-    }
+  }
 </style>
 </head>
 <body>
@@ -156,15 +178,12 @@
     </div>
   </div>
 
-
   <!-- Mensagem especial -->
   <div class="special-message" id="specialMessage"></div>
 
   <script>
     const startDate = new Date("2024-10-19T15:51:00");
     let specialTriggered = false;
-
-    // ===== ADICIONADO: variável global do intervalo =====
     let confettiInterval;
 
     function pad(n) {
@@ -203,13 +222,13 @@
     });
 
     function openSurpriseModal() {
-    document.getElementById('surpriseModal').classList.add('show');
+      document.getElementById('surpriseModal').classList.add('show');
     }
     function closeSurpriseModal() {
-    document.getElementById('surpriseModal').classList.remove('show');
+      document.getElementById('surpriseModal').classList.remove('show');
     }
     document.getElementById('surpriseModal').addEventListener('click', function(e) {
-    if (e.target === this) closeSurpriseModal();
+      if (e.target === this) closeSurpriseModal();
     });
 
     // ===== Evento especial =====
@@ -232,12 +251,10 @@
         : "🎊 Feliz nosso dia especial! 🎊";
       msg.style.display = "block";
 
-      // ===== MUDANÇA PRINCIPAL: criar confetes contínuos a cada 200ms =====
       confettiInterval = setInterval(() => {
         for (let i = 0; i < 5; i++) createConfetti();
       }, 200);
 
-      // Para os confetes depois de 5 minutos
       setTimeout(() => {
         clearInterval(confettiInterval);
         msg.style.display = "none";
@@ -247,12 +264,12 @@
 
     function checkSpecialEvent(now) {
       const day = now.getDate();
-      const month = now.getMonth(); // 0 = Janeiro, 9 = Outubro
+      const month = now.getMonth(); 
       const hour = now.getHours();
       const minute = now.getMinutes();
 
       if (day === 19 && hour === 15 && minute === 51 && !specialTriggered) {
-        const isAnniversary = (month === 9); // Outubro
+        const isAnniversary = (month === 9);
         startSpecialEvent(isAnniversary);
         specialTriggered = true;
       }
