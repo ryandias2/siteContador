@@ -1,214 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Nosso Amor</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosso Amor</title>
+<style>
+  /* ===== RESET ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; min-height: 100%; font-family: 'Roboto', sans-serif; color: white; overflow-x: hidden; overflow-y: auto; }
 
-    body, html {
-      width: 100%;
-      min-height: 100%;
-      font-family: 'Roboto', sans-serif;
-      overflow-x: hidden;
-      overflow-y: auto;
-      color: white;
-    }
+  /* ===== FUNDO MOSAICO ===== */
+  .background-mosaic {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    z-index: -1;
+  }
+  .background-mosaic img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* ===== Mosaico de 9 imagens no fundo ===== */
-    .background-mosaic {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      z-index: -1;
-    }
+  /* ===== CONTAINER ===== */
+  .container {
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+  }
+  .container h1 { font-size: 2.2rem; margin-bottom: 20px; }
+  #contador { font-size: 1.3rem; line-height: 2rem; white-space: pre-line; margin-bottom: 15px; }
+  .signature { font-family: 'Pacifico', cursive; font-size: 2rem; color: #FFD700; margin-top: 10px; }
+  .message { font-size: 1.1rem; margin-top: 10px; }
 
-    .background-mosaic img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  /* ===== BOTÕES ===== */
+  .letter-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: pink;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .letter-button:active { transform: scale(0.95); }
 
-    /* ===== Contador ===== */
-    .container {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.5);
-      border-radius: 15px;
-      max-width: 600px;
-      margin: 40px auto;
-    }
+  /* ===== MODAL ===== */
+  .modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.7); z-index: 5;
+  }
+  .modal.show { display: flex; }
+  .modal-content {
+    background: white; color: black; padding: 30px;
+    border-radius: 15px; max-width: 500px; text-align: center;
+    font-size: 1.2rem; line-height: 1.8rem; overflow-y: auto; max-height: 80vh;
+  }
+  .modal button {
+    margin-top: 20px; background: #ff4d4d; border: none;
+    color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer;
+  }
 
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-    }
+  /* ===== MENSAGEM ESPECIAL ===== */
+  .special-message {
+    font-size: 2rem; text-align: center; margin-top: 20px; display: none;
+    animation: glow 1s infinite alternate;
+  }
+  @keyframes glow { from { text-shadow: 0 0 10px yellow; } to { text-shadow: 0 0 20px red; } }
 
-    #contador {
-      font-size: 1.3rem;
-      line-height: 2rem;
-      white-space: pre-line;
-      margin-bottom: 15px;
-    }
+  /* ===== CONFETES ===== */
+  .confetti {
+    position: fixed; width: 10px; height: 10px; top: -10px;
+    animation: fall linear forwards; z-index: 10;
+  }
+  @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
 
-    .signature {
-      margin-top: 10px;
-      font-family: 'Pacifico', cursive;
-      font-size: 2rem;
-      color: #FFD700;
-    }
+  /* ===== RESPONSIVIDADE ===== */
+  @media (max-width: 600px) {
+    .container { max-width: 90%; margin: 20px auto; padding: 15px; }
+    .container h1 { font-size: 1.8rem; }
+    #contador { font-size: 1.4rem; line-height: 2rem; }
+    .signature { font-size: 2rem; }
+    .message { font-size: 1.1rem; }
+    .letter-button { font-size: 1rem; padding: 10px 18px; }
+    .special-message { font-size: 2rem; }
+    .modal-content { font-size: 1rem; padding: 20px; }
+    .background-mosaic { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto auto; }
+    .background-mosaic img { width: 100%; height: 100%; object-fit: cover; }
+  }
 
-    .message {
-      font-size: 1.1rem;
-      margin-top: 10px;
-      color: #fff;
-    }
-
-    /* ===== Botão da carta ===== */
-    .letter-button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: pink;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .letter-button:active {
-      transform: scale(0.95);
-    }
-
-    /* ===== Modal ===== */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.7);
-      z-index: 5;
-    }
-
-    .modal-content {
-      background: white;
-      color: black;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 500px;
-      text-align: center;
-      font-size: 1.2rem;
-      line-height: 1.8rem;
-    }
-
-    .modal.show {
-      display: flex;
-    }
-
-    .modal button {
-      margin-top: 20px;
-      background: #ff4d4d;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    /* ===== Mensagem especial ===== */
-    .special-message {
-      font-size: 2rem;
-      text-align: center;
-      margin-top: 20px;
-      display: none;
-      animation: glow 1s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px yellow; }
-      to { text-shadow: 0 0 20px red; }
-    }
-
-    /* ===== Confetes ===== */
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      top: -10px;
-      animation: fall linear forwards;
-      z-index: 10;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-      }
-    }
-
-    /* ===== RESPONSIVIDADE CELULAR ===== */
-    @media (max-width: 480px) {
-      #counter {
-        max-width: 95%;
-        margin: 20px auto;
-        padding: 15px;
-      }
-
-      #counter h1 {
-        font-size: 1.8rem;
-      }
-
-      #contador {
-        font-size: 1.4rem;
-        line-height: 2rem;
-      }
-
-      .signature {
-        font-size: 2rem;
-      }
-
-      .message {
-        font-size: 1.1rem;
-      }
-
-      .letter-button {
-        font-size: 1rem;
-        padding: 10px 18px;
-      }
-
-      .special-message {
-        font-size: 2rem;
-      }
-
-      .modal-content {
-        font-size: 1rem;
-        padding: 20px;
-      }
-
-      .background-mosaic {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: auto auto auto;
-      }
-
-      .background-mosaic img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-  </style>
+  @media (max-width: 400px) {
+    .container h1 { font-size: 1.5rem; }
+    #contador { font-size: 1.2rem; }
+    .signature { font-size: 1.8rem; }
+    .message { font-size: 1rem; }
+    .letter-button { font-size: 0.9rem; padding: 8px 14px; }
+    .special-message { font-size: 1.8rem; }
+  }
+</style>
 </head>
 <body>
   <!-- Fundo com mosaico -->
@@ -233,11 +127,8 @@
     <button class="letter-button" onclick="openLetter()">Um presentinho pra vc...</button>
     <button class="letter-button" onclick="openSurpriseModal()">Um outro presentinho pra vc... 10 meses depois!</button>
     <div style="text-align: center; margin-top: 10px;">
-        <a href="index2.html" style="font-size: 0.9rem; color: #ffd700; text-decoration: none;">
-            Tenha um flashback
-        </a>
+      <a href="index2.html" style="font-size: 0.9rem; color: #ffd700; text-decoration: none;">Tenha um flashback</a>
     </div>
-
   </div>
 
   <!-- Modal da carta -->
