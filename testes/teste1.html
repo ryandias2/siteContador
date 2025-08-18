@@ -1,61 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste de Confetes</title>
-    <style>
-        /* Estilos básicos da página */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            position: relative;
-            background-color: #f4f4f4;
-        }
-
-        .message {
-            font-size: 2em;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            z-index: 1;
-            position: absolute;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Simulação Evento</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .special-message {
+      font-size: 2rem;
+      margin-top: 20px;
+      display: none;
+      animation: glow 1s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px yellow; }
+      to   { text-shadow: 0 0 20px red; }
+    }
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: fall linear forwards;
+      z-index: 10;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
 </head>
 <body>
+  <h1>🎉 Simulação do Evento do Dia 19 🎉</h1>
+  <button onclick="simulateEvent()">Simular Evento</button>
+  <div class="special-message" id="specialMessage"></div>
 
-    <div class="message">Confetes em 3... 2... 1...!</div>
+  <script>
+    let confettiInterval;
 
-    <!-- Biblioteca de confetes -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.backgroundColor =
+        ["red","yellow","blue","pink","purple","orange","green"][Math.floor(Math.random()*7)];
+      confetti.style.animationDuration = (Math.random()*3+2) + "s";
+      confetti.style.width = confetti.style.height = (Math.random()*8+5) + "px";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
 
-    <script>
-        function randomConfettiExplosion() {
-            confetti({
-                particleCount: 50,
-                spread: 50,
-                origin: { x: Math.random(), y: Math.random() - 0.2 }
-            });
-        }
+    function simulateEvent() {
+      const msg = document.getElementById("specialMessage");
+      msg.innerHTML = "🎊 Feliz nosso dia especial (19)! 🎊";
+      msg.style.display = "block";
 
-        function startConfettiForFiveMinutes() {
-            const duration = 5 * 60 * 1000; // 5 minutos
-            const end = Date.now() + duration;
+      // Inicia confetes a cada 200ms
+      confettiInterval = setInterval(() => {
+        for (let i = 0; i < 5; i++) createConfetti();
+      }, 200);
 
-            const confettiInterval = setInterval(() => {
-                randomConfettiExplosion();
-                if (Date.now() > end) {
-                    clearInterval(confettiInterval);
-                }
-            }, 300);
-        }
-
-        // Inicia os confetes ao carregar a página
-        startConfettiForFiveMinutes();
-    </script>
+      // Para depois de 5 minutos (300000ms)
+      setTimeout(() => {
+        clearInterval(confettiInterval);
+        msg.style.display = "none";
+      }, 300000);
+    }
+  </script>
 </body>
 </html>
