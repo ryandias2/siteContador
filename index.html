@@ -81,27 +81,27 @@
   @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
 
   /* ===== RESPONSIVIDADE ===== */
-  @media (max-width: 600px) {
-    .container { max-width: 90%; margin: 20px auto; padding: 15px; }
-    .container h1 { font-size: 1.8rem; }
-    #contador { font-size: 1.4rem; line-height: 2rem; }
+    @media (max-width: 600px) {
+    /* 🔥 Mantém igual ao desktop */
+    .container { max-width: 600px; margin: 50px auto; padding: 20px; }
+    .container h1 { font-size: 2.2rem; }
+    #contador { font-size: 1.3rem; line-height: 2rem; }
     .signature { font-size: 2rem; }
     .message { font-size: 1.1rem; }
-    .letter-button { font-size: 1rem; padding: 10px 18px; }
+    .letter-button { font-size: 1.2rem; padding: 12px 24px; }
     .special-message { font-size: 2rem; }
-    .modal-content { font-size: 1rem; padding: 20px; }
-    .background-mosaic { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto auto; }
-    .background-mosaic img { width: 100%; height: 100%; object-fit: cover; }
-  }
+    .modal-content { font-size: 1.2rem; padding: 30px; }
+    }
 
-  @media (max-width: 400px) {
-    .container h1 { font-size: 1.5rem; }
-    #contador { font-size: 1.2rem; }
-    .signature { font-size: 1.8rem; }
-    .message { font-size: 1rem; }
-    .letter-button { font-size: 0.9rem; padding: 8px 14px; }
-    .special-message { font-size: 1.8rem; }
-  }
+    @media (max-width: 400px) {
+    /* 🔥 Também mantém igual ao desktop */
+    .container h1 { font-size: 2.2rem; }
+    #contador { font-size: 1.3rem; }
+    .signature { font-size: 2rem; }
+    .message { font-size: 1.1rem; }
+    .letter-button { font-size: 1.2rem; padding: 12px 24px; }
+    .special-message { font-size: 2rem; }
+    }
 </style>
 </head>
 <body>
