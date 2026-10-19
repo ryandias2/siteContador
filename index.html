@@ -15,7 +15,11 @@ body{font:1.2rem/1.6 'Cormorant Garamond',serif;color:var(--i);background:#fde9e
 :focus-visible{outline:2px solid var(--r);outline-offset:3px}
 button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .mos{position:fixed;inset:0;display:grid;grid:repeat(2,1fr)/repeat(3,1fr);z-index:-2}
-.mos img{width:100%;height:100%;object-fit:cover}
+.mos div{position:relative;overflow:hidden;background:center/cover}
+.mos img{position:relative;display:block;width:100%;height:100%;object-fit:cover}
+/* TELA EM PÉ (celular/tablet): as 6 fotos são horizontais e a célula fica alta e estreita, então "cover" cortava metade.
+   Aqui a foto aparece INTEIRA (contain) e o resto da célula é preenchido por uma cópia desfocada dela mesma. */
+@media(max-aspect-ratio:1/1){.mos{grid:repeat(3,1fr)/repeat(2,1fr)}.mos div::before{content:"";position:absolute;inset:-24px;background:inherit;filter:blur(20px)}.mos img{object-fit:contain}}
 /* VÉU SOBRE AS FOTOS: antes #fff2f6e6 → #f9d6e1cc (90% → 80%). Agora ~78% → ~65%. Quanto menor o final (c7 / a6), mais as fotos aparecem. */
 .veil{position:fixed;inset:0;z-index:-1;background:linear-gradient(160deg,#fff2f6c7,#f9d6e1a6)}
 #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
@@ -78,7 +82,6 @@ footer a{color:var(--r);display:inline-block;padding:6px 8px}
 /* ===== CELULAR ===== */
 @media(max-width:600px){
 body{font-size:1.1rem}
-.mos{grid:repeat(3,1fr)/repeat(2,1fr)}
 section{padding-top:56px;padding-bottom:56px}
 .hero{padding-top:36px;padding-bottom:36px}
 .since{font-size:1rem;margin-bottom:16px}
@@ -242,6 +245,8 @@ const RT=[1.333, 0.749, 0.462, 0.75, 0.749, 0.467, 1.333, 0.562, 0.462, 0.75, 1.
 $('gal').innerHTML=RT.map((r,i)=>`<figure><div style="aspect-ratio:${r}"><img src="fotos/foto-${pad(i+1)}.jpg" alt="Foto ${i+1} do nosso álbum" loading="lazy"></div>${CAP[i+1]?`<figcaption>${CAP[i+1]}</figcaption>`:''}</figure>`).join('');
 $('gal').onclick=e=>{const i=e.target.closest('img');if(i){$('lb').querySelector('img').src=i.src;$('lb').classList.add('on')}};
 $('lb').onclick=()=>$('lb').classList.remove('on');addEventListener('keydown',e=>e.key=='Escape'&&$('lb').classList.remove('on'));
+/* fundo: cada foto ganha uma div com a própria imagem (usada como preenchimento desfocado em tela em pé) */
+document.querySelectorAll('.mos img').forEach(i=>{const d=document.createElement('div');d.style.backgroundImage=`url("${i.getAttribute('src')}")`;i.replaceWith(d);d.append(i)});
 tick();setInterval(tick,1000);requestAnimationFrame(loop);
 /* teste: abra index.html?festa (grande) ou ?festa=mes (suave) */
 const q=new URLSearchParams(location.search).get('festa');if(q!==null)setTimeout(()=>celebrate(q=='mes'?'mes':'ano'),900);
