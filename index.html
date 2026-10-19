@@ -2,278 +2,249 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nosso Amor</title>
-
-<!-- 🔥 Importação das fontes -->
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nosso Amor · R + N</title>
+<script>addEventListener('error',e=>e.target.tagName=='IMG'&&e.target.remove(),true)</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-  /* ===== RESET ===== */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { 
-    width: 100%; 
-    min-height: 100%; 
-    font-family: 'Roboto', sans-serif; 
-    color: white; 
-    overflow-x: hidden; 
-    overflow-y: auto; 
-  }
+:root{--r:#b8455f;--c:#fff8f3;--i:#4a2f39;--g:#b88a44}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font:1.2rem/1.6 'Cormorant Garamond',serif;color:var(--i);background:#fde9ee;overflow-x:hidden}
+.s,.to,.by,figcaption{font-family:'Great Vibes',cursive;font-weight:400}
+:focus-visible{outline:2px solid var(--r);outline-offset:3px}
+button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.mos{position:fixed;inset:0;display:grid;grid:repeat(2,1fr)/repeat(3,1fr);z-index:-2}
+.mos img{width:100%;height:100%;object-fit:cover}
+/* VÉU SOBRE AS FOTOS: antes #fff2f6e6 → #f9d6e1cc (90% → 80%). Agora ~78% → ~65%. Quanto menor o final (c7 / a6), mais as fotos aparecem. */
+.veil{position:fixed;inset:0;z-index:-1;background:linear-gradient(160deg,#fff2f6c7,#f9d6e1a6)}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+section{max-width:980px;margin:auto;padding:80px max(20px,env(safe-area-inset-right)) 80px max(20px,env(safe-area-inset-left));text-align:center}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+h1{font-size:clamp(3.4rem,14vw,6.8rem);color:var(--r);line-height:1;text-shadow:0 1px 14px #fff8f3}
+.since{font-style:italic;margin:2px 0 22px;text-wrap:balance;text-shadow:0 1px 10px #fff8f3}
+.card{background:#fff8f3bd;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid #fff;border-radius:28px;padding:34px 22px 28px;max-width:640px;width:100%;box-shadow:0 24px 70px #c9566f2e}
+.card h2{font-weight:400;font-style:italic;font-size:1.6rem}
+.card.glow{animation:glow 2.4s ease-in-out infinite alternate}
+@keyframes glow{to{box-shadow:0 0 70px #e98aa5b3}}
+.cnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:20px 0 6px}
+.cnt b{display:block;font-size:clamp(1.9rem,6vw,2.7rem);font-weight:600;color:var(--r);font-variant-numeric:tabular-nums;line-height:1.1}
+.cnt small{font-style:italic;font-size:1rem}
+.sig{font-size:2.8rem;color:var(--g);line-height:1.3;margin-top:8px}
+.beat{display:inline-block;animation:beat 1.8s infinite}
+@keyframes beat{15%{transform:scale(1.22)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 24px;margin-top:22px;font-style:italic;text-shadow:0 1px 10px #fff8f3}
+.stats b{font-style:normal;color:var(--r)}
+h3{font-size:clamp(2.6rem,9vw,3.8rem);color:var(--r);font-weight:400;line-height:1.2;text-shadow:0 1px 14px #fff8f3}
+.sub{font-style:italic;margin-top:4px;text-shadow:0 1px 10px #fff8f3}
+.envs{display:flex;flex-wrap:wrap;gap:34px;justify-content:center;margin-top:36px}
+.env{position:relative;width:190px;height:128px;border:0;border-radius:6px;background:var(--c);box-shadow:0 14px 34px #c9566f33;cursor:pointer;font:inherit;color:var(--i);transition:transform .4s}
+@media(hover:hover){.env:hover{transform:translateY(-6px) rotate(-1.5deg)}}
+.flap{position:absolute;inset:0 0 auto;height:62%;background:#f4d3db;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .6s}
+.seal{position:absolute;left:50%;top:46%;translate:-50% -50%;width:36px;height:36px;border-radius:50%;background:var(--r);color:#fff;display:grid;place-items:center;box-shadow:0 3px 8px #0003;transition:opacity .3s}
+.env i{position:absolute;bottom:9px;inset-inline:0;font-size:1.05rem}
+.env.open .flap{transform:rotateX(180deg)}.env.open .seal{opacity:0}
+.env em{position:absolute;top:-12px;right:-10px;background:var(--g);color:#fff;font-size:.9rem;padding:0 11px;border-radius:99px}
+.gal{columns:2;column-gap:16px;margin-top:36px;padding-inline:6px}
+@media(min-width:760px){.gal{columns:3;column-gap:22px}}
+figure{break-inside:avoid;margin:0 0 20px;background:#fffdfb;padding:8px 8px 10px;box-shadow:0 12px 30px #c9566f33;rotate:var(--t,-1.2deg);cursor:zoom-in}
+figure:nth-child(3n+2){--t:1.4deg}figure:nth-child(5n){--t:-.5deg}
+figure div{background:linear-gradient(135deg,#fbd9e3,#f7e6d6);overflow:hidden}
+figure img{width:100%;height:auto;display:block}
+#lb{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));background:#2a1520e6;cursor:zoom-out}
+#lb.on{display:grid}
+#lb img{max-width:100%;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px);object-fit:contain;border-radius:4px;box-shadow:0 20px 60px #0008}
+figcaption{font-size:1.6rem;color:var(--r);line-height:1.3;margin-top:4px}
+footer{padding:50px 20px calc(90px + env(safe-area-inset-bottom));text-align:center;font-style:italic}
+footer a{color:var(--r);display:inline-block;padding:6px 8px}
+.fs{font-style:normal;font-size:2.2rem;color:var(--r);text-shadow:0 1px 14px #fff8f3}
+.ghost{display:block;margin:22px auto 0;background:none;border:1px solid var(--r);color:var(--r);border-radius:99px;padding:9px 26px;font:inherit;cursor:pointer}
+#lm{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:18px;background:#3a1f2acc;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#lm.on{display:grid}
+/* FUNDO DAS CARTAS: imagemNay (mesma pasta do index.html). Tenta .jpg, .jpeg, .png e .webp; a que existir aparece.
+   A camada rosada por cima (alfa 9e / 8f ≈ 60%) mantém o texto legível: diminua pra ver mais a imagem, aumente pra ler melhor. */
+.paper{background-color:#fffaf5;background-image:linear-gradient(#fffaf59e,#fdeee98f),url(imagemNay.jpg),url(imagemNay.jpeg),url(imagemNay.png),url(imagemNay.webp);background-size:cover;background-position:center;text-shadow:0 0 10px #fffaf5;border-radius:6px 6px 18px 18px;max-width:560px;width:100%;max-height:86vh;max-height:86dvh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:38px 30px 26px;text-align:left;font-size:1.3rem;line-height:1.75;box-shadow:0 30px 80px #0006}
+.paper p{opacity:0;animation:rise 1s forwards;margin-bottom:1em}
+.to,.by{font-size:2.4rem;line-height:1.2}.by{text-align:right;color:var(--r)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+#msg{position:fixed;inset:0;z-index:40;display:grid;place-content:center;text-align:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 1.8s;background:radial-gradient(circle,#fff8f3bf,transparent 70%)}
+#msg.on{opacity:1}
+#mt{font-size:clamp(2.6rem,11vw,6rem);color:var(--r);line-height:1.1;text-shadow:0 0 30px #ffd696e6}
+#msg span{color:var(--g);margin-top:12px;letter-spacing:.2em}
+#msg.big{place-content:end center;padding-bottom:9vh;background:radial-gradient(circle at 50% 34%,#ffe9c2b3,#fff8f366 38%,transparent 72%)}
+#mt i{font-style:normal;display:inline-block;opacity:0;animation:ink 1.3s forwards}
+@keyframes ink{from{opacity:0;filter:blur(10px);transform:translateY(14px) scale(1.12)}to{opacity:1}}
 
-  /* ===== FUNDO MOSAICO ===== */
-  .background-mosaic {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    z-index: -1;
-  }
-  .background-mosaic img { width: 100%; height: 100%; object-fit: cover; }
-
-  /* ===== CONTAINER ===== */
-  .container {
-    position: relative;
-    z-index: 2;
-    background: rgba(0,0,0,0.5);
-    border-radius: 15px;
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    text-align: center;
-  }
-  .container h1 { font-size: 2.2rem; margin-bottom: 20px; }
-  #contador { font-size: 1.3rem; line-height: 2rem; white-space: pre-line; margin-bottom: 15px; }
-
-  /* 🔥 Correção da fonte */
-  .signature { 
-    font-family: 'Pacifico', cursive !important; 
-    font-size: 2rem; 
-    color: #FFD700; 
-    margin-top: 10px; 
-    text-align: center;
-  }
-  .message { 
-    font-family: 'Roboto', sans-serif !important; 
-    font-size: 1.1rem; 
-    margin-top: 10px; 
-    text-align: center;
-  }
-
-  /* ===== BOTÕES ===== */
-  .letter-button {
-    margin-top: 20px;
-    padding: 12px 24px;
-    background: pink;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  .letter-button:active { transform: scale(0.95); }
-
-  /* ===== MODAL ===== */
-  .modal {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    display: none; align-items: center; justify-content: center;
-    background: rgba(0,0,0,0.7); z-index: 5;
-  }
-  .modal.show { display: flex; }
-  .modal-content {
-    background: white; color: black; padding: 30px;
-    border-radius: 15px; max-width: 500px; text-align: center;
-    font-size: 1.2rem; line-height: 1.8rem; overflow-y: auto; max-height: 80vh;
-  }
-  .modal button {
-    margin-top: 20px; background: #ff4d4d; border: none;
-    color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer;
-  }
-
-  /* ===== MENSAGEM ESPECIAL ===== */
-  .special-message {
-    font-size: 2rem; text-align: center; margin-top: 20px; display: none;
-    animation: glow 1s infinite alternate;
-  }
-  @keyframes glow { from { text-shadow: 0 0 10px yellow; } to { text-shadow: 0 0 20px red; } }
-
-  /* ===== CONFETES ===== */
-  .confetti {
-    position: fixed; width: 10px; height: 10px; top: -10px;
-    animation: fall linear forwards; z-index: 10;
-  }
-  @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
-
-  /* ===== RESPONSIVIDADE ===== */
-  @media (max-width: 600px) {
-    .container { max-width: 600px; margin: 50px auto; padding: 20px; }
-    .container h1 { font-size: 2.2rem; }
-    #contador { font-size: 1.3rem; line-height: 2rem; }
-    .signature { font-size: 2rem; }
-    .message { font-size: 1.1rem; }
-    .letter-button { font-size: 1.2rem; padding: 12px 24px; }
-    .special-message { font-size: 2rem; }
-    .modal-content { font-size: 1.2rem; padding: 30px; }
-  }
-
-  @media (max-width: 400px) {
-    .container h1 { font-size: 2.2rem; }
-    #contador { font-size: 1.3rem; }
-    .signature { font-size: 2rem; }
-    .message { font-size: 1.1rem; }
-    .letter-button { font-size: 1.2rem; padding: 12px 24px; }
-    .special-message { font-size: 2rem; }
-  }
+/* ===== CELULAR ===== */
+@media(max-width:600px){
+body{font-size:1.1rem}
+.mos{grid:repeat(3,1fr)/repeat(2,1fr)}
+section{padding-top:56px;padding-bottom:56px}
+.hero{padding-top:36px;padding-bottom:36px}
+.since{font-size:1rem;margin-bottom:16px}
+.card{padding:26px 14px 22px;border-radius:22px}
+.card h2{font-size:1.4rem}
+.cnt{grid-template-columns:repeat(3,1fr);row-gap:14px}
+.sig{font-size:2.4rem}
+.stats{flex-direction:column;align-items:center;gap:2px;font-size:1rem;margin-top:18px}
+.sub{font-size:1rem}
+.envs{gap:28px 14px;margin-top:28px}
+.env{width:calc(50% - 7px);max-width:190px;height:112px}
+.gal{column-gap:12px;margin-top:28px}
+figure{margin-bottom:14px;padding:6px 6px 8px}
+figcaption{font-size:1.4rem}
+.fs{font-size:1.9rem}
+#lm{padding:14px}
+.paper{padding:28px 20px 20px;font-size:1.15rem;line-height:1.7}
+.to,.by{font-size:2rem}
+#mt{font-size:clamp(2.4rem,12vw,4rem)}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.paper p,#mt i{opacity:1}}
 </style>
 </head>
 <body>
-  <!-- Fundo com mosaico -->
-  <div class="background-mosaic">
-    <img src="IMG-20250818-WA0023.jpg" alt="">
-    <img src="IMG-20250818-WA0024.jpg" alt="">
-    <img src="IMG-20250818-WA0025.jpg" alt="">
-    <img src="IMG-20250818-WA0026.jpg" alt="">
-    <img src="IMG-20250818-WA0027.jpg" alt="">
-    <img src="IMG-20250818-WA0028.jpg" alt="">
-    <img src="ImagemWhatsApp_1.jpg" alt="">
-    <img src="ImagemWhatsApp_2.jpg" alt="">
-    <img src="ImagemWhatsApp_3.jpg" alt="">
-  </div>
+<!-- FUNDO: 6 das 58 fotos (troque os números para escolher outras) -->
+<div class="mos"><img src="fotos/foto-07.jpg" alt=""><img src="fotos/foto-12.jpg" alt=""><img src="fotos/foto-19.jpg" alt=""><img src="fotos/foto-44.jpg" alt=""><img src="fotos/foto-53.jpg" alt=""><img src="fotos/foto-56.jpg" alt=""></div>
+<div class="veil"></div>
+<canvas id="fx"></canvas>
 
-  <!-- Contador -->
-  <div class="container" id="counter">
-    <h1>Estamos juntos há...</h1>
-    <div id="contador"></div>
-    <div class="signature">R + N</div>
-    <div class="message">Eu te amo infinitamente mais a cada segundo desse tempo nosso juntos. 💖</div>
-    <button class="letter-button" onclick="openLetter()">Um presentinho pra vc...</button>
-    <button class="letter-button" onclick="openSurpriseModal()">Um outro presentinho pra vc... 10 meses depois!</button>
-    <div style="text-align: center; margin-top: 10px;">
-      <a href="index2.html" style="font-size: 0.9rem; color: #ffd700; text-decoration: none;">Tenha um flashback</a>
+<section class="hero">
+  <h1 class="s">Nosso Amor</h1>
+  <p class="since">desde 19 de outubro de 2024, às 15:51</p>
+  <div class="card">
+    <h2>Estamos juntos há…</h2>
+    <div class="cnt">
+      <div><b id="ca">0</b><small>anos</small></div><div><b id="cm">0</b><small>meses</small></div><div><b id="cd">0</b><small>dias</small></div>
+      <div><b id="ch">00</b><small>horas</small></div><div><b id="ci">00</b><small>minutos</small></div><div><b id="cs">00</b><small>segundos</small></div>
     </div>
+    <p class="sig s">R + N <span class="beat">♥</span></p>
+    <p>Eu te amo infinitamente mais a cada segundo desse tempo nosso juntos. 💖</p>
   </div>
+  <div class="stats"><span><b id="nd"></b> dias de nós</span><span><b id="nh"></b> horas juntinhos</span><span>próximo marco: <b id="nx"></b></span></div>
+</section>
 
-  <!-- Modal da carta -->
-  <div class="modal" id="letterModal">
-    <div class="modal-content">
-      Querida,  
-      <br><br>
-      Não há palavras que descrevam o quanto você significa para mim. Cada momento ao seu lado é especial, e nosso amor é o que ilumina meus dias. Obrigado por ser minha companheira, minha amiga e o amor da minha vida.  
-      <br><br>
-      Amo você mais do que tudo, e mal posso esperar por todos os dias que ainda vamos compartilhar juntos!  
-      <br><br>
-      Com todo o amor do mundo, seu Pastelzinho
-      <br>
-      <button onclick="closeLetter()">Fechar</button>
-    </div>
+<section id="cartas">
+  <h3 class="s">Cartas pra você</h3>
+  <p class="sub">Toque num envelope para abrir.</p>
+  <div class="envs">
+    <button class="env" data-c="c1"><span class="flap"></span><span class="seal">♥</span><i>1 mês</i></button>
+    <button class="env" data-c="c2"><span class="flap"></span><span class="seal">♥</span><i>10 meses</i></button>
+    <button class="env" data-c="c3"><em>nova</em><span class="flap"></span><span class="seal">♥</span><i>2 anos</i></button>
   </div>
+</section>
 
-  <div class="modal" id="surpriseModal">
-    <div class="modal-content" style="overflow-y: auto; max-height: 80vh; font-family: 'Pacifico', cursive;">
-        <p>
-        Pois bem, quem diria em... já fazem 10 meses que estamos juntos, esse site que foi feito no primeiro mês, que tinha 29 dias no contador quando iniciei ele já vai para dígitos duplos em meses, fico feliz e orgulhoso de tudo que passamos, e esse site representa nosso relacionamento, a imagem da formula 1, agora tem um mosaico de 9 ou 6 fotos, quando criei esse site, nunca havíamos brigados, e nesses 9 meses a mais, bom... fizemos isso bastante, e por duas vezes quase terminamos, mas assim como eu fiz agora com o site, nos renovamos, e aprendemos a passar por tudo juntos, a manter o dialogo, suportar a dor, pq ela é zero perto do amor que temos e alegria que teremos, eu dedico tudo a vc, pq no fim você é meu tudo, provavelmente lera isso antes das 15:51, uma chuva de confetes a aguarda, e enquanto ver eles caírem, pensa que cada um representa um momento difícil que cai e passa, eu amo muito você e quero sempre estar com vc, independe do que aconteçaa porque no fim, você é você, única, forte, porem feita pra mim, as vezes estressada, mas embora não admita, não vivo sem vc desse jeito, eu te amo pimpolha, se tudo der certo, teremos em menos de um mês fotos novas pra esse mural, mas independe do que ocorra, seremos igual esse site, sempre estará no ar, sempre terá atualizações, e nunca jamais será apagado, feliz 10 meses amor, eu te amo Nana. ❤️
-        </p>
-        <br>
-        <button onclick="closeSurpriseModal()">Fechar</button>
-    </div>
-  </div>
+<section>
+  <h3 class="s">Nossos momentos</h3>
+  <p class="sub">Toque numa foto para ver maior.</p>
+  <div class="gal" id="gal"></div>
+</section>
 
-  <!-- Mensagem especial -->
-  <div class="special-message" id="specialMessage"></div>
+<footer>
+  <p class="s fs">Sempre no ar, sempre com novidades, nunca será apagado.</p>
+  <button class="ghost" onclick="celebrate('amor')">🌸 uma chuva de pétalas pra você</button>
+  <p style="margin-top:22px"><a href="index2.html">Tenha um flashback</a></p>
+  <p style="margin-top:10px"><a href="index3.html">Tenha outro flashback</a></p>
+</footer>
 
-  <script>
-    const startDate = new Date("2024-10-19T15:51:00");
-    let specialTriggered = false;
-    let confettiInterval;
+<div id="lb"><img alt=""></div>
+<div id="msg"><p class="s" id="mt"></p><span>R + N ♥</span></div>
 
-    function pad(n) {
-      return n < 10 ? '0' + n : n;
-    }
+<div id="lm" role="dialog" aria-modal="true"><div class="paper"><div id="lt"></div><button class="ghost" onclick="closeL()">fechar</button></div></div>
 
-    function updateTime() {
-      const now = new Date();
-      const diff = now - startDate;
+<!-- ================= CARTAS ================= -->
+<div id="c1" hidden>
+  <p class="to">Querida,</p>
+  <p>Não há palavras que descrevam o quanto você significa para mim. Cada momento ao seu lado é especial, e nosso amor é o que ilumina meus dias. Obrigado por ser minha companheira, minha amiga e o amor da minha vida.</p>
+  <p>Amo você mais do que tudo, e mal posso esperar por todos os dias que ainda vamos compartilhar juntos!</p>
+  <p>Com todo o amor do mundo,</p>
+  <p class="by">seu Pastelzinho</p>
+</div>
+<div id="c2" hidden>
+  <p>Pois bem, quem diria, em... já fazem 10 meses que estamos juntos, esse site que foi feito no primeiro mês, que tinha 29 dias no contador quando iniciei ele, já vai para dígitos duplos em meses. Fico feliz e orgulhoso de tudo que passamos, e esse site representa nosso relacionamento: a imagem da fórmula 1 agora tem um mosaico de 9 ou 6 fotos.</p>
+  <p>Quando criei esse site, nunca havíamos brigado, e nesses 9 meses a mais, bom... fizemos isso bastante, e por duas vezes quase terminamos, mas assim como eu fiz agora com o site, nos renovamos, e aprendemos a passar por tudo juntos, a manter o diálogo, suportar a dor, pq ela é zero perto do amor que temos e da alegria que teremos. Eu dedico tudo a vc, pq no fim você é meu tudo.</p>
+  <p>Provavelmente lerá isso antes das 15:51, uma chuva de confetes a aguarda, e enquanto ver eles caírem, pensa que cada um representa um momento difícil que cai e passa. Eu amo muito você e quero sempre estar com vc, independe do que aconteça, porque no fim, você é você, única, forte, porém feita pra mim, às vezes estressada, mas embora não admita, não vivo sem vc desse jeito. Eu te amo, pimpolha.</p>
+  <p>Se tudo der certo, teremos em menos de um mês fotos novas pra esse mural, mas independe do que ocorra, seremos igual esse site: sempre estará no ar, sempre terá atualizações, e nunca jamais será apagado. Feliz 10 meses, amor, eu te amo, Nana. ❤️</p>
+</div>
+<div id="c3" hidden>
+  <p class="to">Meu amor,</p>
+  <p>Nayara meu amor, cá estamos nós novamente, agora a 2 ANOS juntos meu bem, eu sou muito feliz em ter voce, amei cada dia ao seu lado amor, ter voce foi uma benção inacreditavel, tivemos momentos dificeis durante esses anos, porem nosso amor é mais forte, e sempre será pois amo voce mais do que amo existir, porem, existir, só é possivel ao seu lado, eu sonho em casar com você e para o Ryan e Nayara de 2 anos atras, acreditem: ESTAMOS CHEGANDO LA. 
+    </p>
+    <p>
+      Acredite se quiser, eu estou sentindo muito sua falta, e infelizmente, nao passarei esse dia 19 ao seu lado, mas ainda sim, quero me fazer o mais presente possivel, quero que voce se sinta amada e feliz sempre, mesmo que eu tente muito, voce nunca sera amada como merece, mas eu vou morrer dando tudo para que voce se sinta a garota mais feliz de toda a terra.
+    </p>
+    <p>
+      Nesse dia, o que menos desejo é brigas e discordias, elas acontecem porem espero que com as bençãos de Jeová, possamos passar por esse dia juntos, ilesos e felizes, espero que aproveite nosso novo site, a carinha nova dele, acredito que amara muito o evento que preparei para quando esse contador completar os 2 anos, e eu estarei feliz, muito feliz porque minha maior felicidade é ter voce em cada segundo, eu te amo minha Nayara
+    </p>
+    <p>
+      Para minha atual, futura e eterna esposa!❤️
+    </p>
+  <p class="by">seu Pastelzinho</p>
+</div>
 
-      const years = new Date(diff).getUTCFullYear() - 1970;
-      const months = new Date(diff).getUTCMonth();
-      const days = new Date(diff).getUTCDate() - 1;
-      const hours = pad(new Date(diff).getUTCHours());
-      const minutes = pad(new Date(diff).getUTCMinutes());
-      const seconds = pad(new Date(diff).getUTCSeconds());
+<script>
+const $=i=>document.getElementById(i),pad=n=>String(n).padStart(2,'0'),START=new Date('2024-10-19T15:51:00'),
+nm=n=>(n.getFullYear()-2024)*12+n.getMonth()-9;
 
-      document.getElementById("contador").textContent =
-        `${years} anos, ${months} meses, ${days} dias\n${hours}:${minutes}:${seconds}`;
+/* ===== contador (cálculo de calendário real) ===== */
+function diff(a,b){let y=b.getFullYear()-a.getFullYear(),m=b.getMonth()-a.getMonth(),d=b.getDate()-a.getDate(),h=b.getHours()-a.getHours(),i=b.getMinutes()-a.getMinutes(),s=b.getSeconds()-a.getSeconds();
+if(s<0){s+=60;i--}if(i<0){i+=60;h--}if(h<0){h+=24;d--}if(d<0){d+=new Date(b.getFullYear(),b.getMonth(),0).getDate();m--}if(m<0){m+=12;y--}return{y,m,d,h,i,s}}
+function tick(){const n=new Date(),t=diff(START,n),ms=n-START;
+$('ca').textContent=t.y;$('cm').textContent=t.m;$('cd').textContent=t.d;$('ch').textContent=pad(t.h);$('ci').textContent=pad(t.i);$('cs').textContent=pad(t.s);
+$('nd').textContent=Math.floor(ms/864e5).toLocaleString('pt-BR');$('nh').textContent=Math.floor(ms/36e5).toLocaleString('pt-BR');
+let x=new Date(n.getFullYear(),n.getMonth(),19,15,51);if(x<=n)x=new Date(n.getFullYear(),n.getMonth()+1,19,15,51);
+const mo=nm(x),L=x-n;$('nx').textContent=(mo%12?mo+'º mês':mo/12+(mo==12?' ano':' anos'))+', em '+Math.floor(L/864e5)+'d '+Math.floor(L%864e5/36e5)+'h';
+/* dia 19 às 15:51 (janela de 5 min, pra pegar quem abre um pouquinho depois) */
+const k=n.toDateString(),m=n.getHours()*60+n.getMinutes();
+if(n.getDate()==19&&m>=951&&m<956&&fired!=k){fired=k;celebrate(n.getMonth()==9&&n.getFullYear()>2024?'ano':'mes')}}
 
-      checkSpecialEvent(now);
-    }
+/* ===== chuva de pétalas e corações (canvas) ===== */
+const cv=$('fx'),cx=cv.getContext('2d'),calm=matchMedia('(prefers-reduced-motion:reduce)').matches,
+COL=['#f8c8d4','#f4a6bd','#e98aa5','#fbe3e8','#e3b877','#ffd9a0','#c9566f'];
+let W,H,P=[],S=null,acc=0,rate=0,fired='';const AMB=calm?0:.012;rate=AMB;
+function fit(){const r=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;cx.setTransform(r,0,0,r,0,0)}
+addEventListener('resize',fit);fit();
+const mk=(x,y,vx,vy)=>({x,y,vx,vy,s:6+Math.random()*9,r:Math.random()*6.3,vr:(Math.random()-.5)*.06,ph:Math.random()*6.3,f:Math.random()*6.3,g:.025+Math.random()*.03,c:COL[Math.random()*7|0],k:Math.random()<.22?1:0,l:0});
+function burst(n){for(let i=0;i<n;i++){const L=i%2,a=(L?-1.9:-1.2)+(Math.random()-.5)*.7,v=11+Math.random()*9;P.push(mk(L?W:0,H,Math.cos(a)*v,Math.sin(a)*v))}}
+function petal(s){cx.moveTo(0,-s);cx.bezierCurveTo(s*.9,-s*.5,s*.7,s*.7,0,s);cx.bezierCurveTo(-s*.7,s*.7,-s*.9,-s*.5,0,-s)}
+function star(s){cx.moveTo(0,-s);cx.quadraticCurveTo(0,0,s,0);cx.quadraticCurveTo(0,0,0,s);cx.quadraticCurveTo(0,0,-s,0);cx.quadraticCurveTo(0,0,0,-s)}
+function heart(s){s*=.8;cx.moveTo(0,s*.4);cx.bezierCurveTo(-s*1.2,-s*.3,-s*.6,-s*1.1,0,-s*.45);cx.bezierCurveTo(s*.6,-s*1.1,s*1.2,-s*.3,0,s*.4)}
+function loop(t){cx.clearRect(0,0,W,H);
+if(S){const k=(t-S.t0)/S.d;if(k>=1){S=null;rate=AMB}else rate=t<S.t0+S.w?0:S.b*(.3+.7*(1-k))}
+acc+=rate;while(acc>=1&&P.length<260){acc--;P.push(mk(Math.random()*W,-20,(Math.random()-.5)*.8,.4+Math.random()))}
+for(let i=P.length;i--;){const p=P[i];p.l++;p.r+=p.vr;p.f+=.04;
+if(p.hx!==undefined&&t<p.rel){const b=1+.05*Math.abs(Math.sin(t/340))**8;p.x+=(HC.x+p.hx*HC.s*b-p.x)*.05+Math.sin(t/500+p.ph)*.25;p.y+=(HC.y+p.hy*HC.s*b-p.y)*.05+Math.cos(t/500+p.ph)*.25}
+else{if(p.hx!==undefined){p.vx=(p.x-HC.x)*.03+Math.random()*2-1;p.vy=(p.y-HC.y)*.03-2-Math.random()*2;delete p.hx}p.vx*=.975;p.vy=p.vy*.975+p.g;p.x+=p.vx+Math.sin(t/800+p.ph)*.45;p.y+=p.vy}
+if(p.y>H+30||p.x<-60||p.x>W+60){P.splice(i,1);continue}
+cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.scale(Math.cos(p.f),1);cx.globalAlpha=Math.min(1,p.l/25)*.9;cx.fillStyle=p.c;cx.beginPath();[petal,heart,star][p.k](p.s);cx.fill();cx.restore()}
+requestAnimationFrame(loop)}
 
-    setInterval(updateTime, 1000);
-    updateTime();
+const GOLD=['#e3b877','#ffd9a0','#fff1c9'],ROSE=['#f4a6bd','#e98aa5','#c9566f'],BLUSH=['#fbe3e8','#f8c8d4','#ffd9a0'];let HC;
+function ink(l,d){let j=0;return l.map(s=>[...s].map(c=>`<i style="animation-delay:${(d+j++*.09).toFixed(2)}s">${c==' '?'&nbsp;':c}</i>`).join('')).join('<br>')}
+function fw(x,y,n,pal){for(let i=0;i<n;i++){const a=Math.random()*6.3,v=2+Math.random()*6,p=mk(x,y,Math.cos(a)*v,Math.sin(a)*v);p.s=3+Math.random()*5;p.g=.02;p.c=pal[i%3];p.k=Math.random()<.4?2:i%5?0:1;P.push(p)}}
+function heartForm(rel){HC={x:W/2,y:H*.34,s:Math.min(W*.7,H*.42,420)/32};[[1,130,ROSE],[.62,80,GOLD]].forEach(([k,n,pal])=>{for(let i=0;i<n;i++){const a=i/n*6.283,p=mk(Math.random()*W,Math.random()<.5?-30:H+30,0,0);p.hx=16*Math.sin(a)**3*k;p.hy=-(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a))*k;p.rel=rel;p.s=5+Math.random()*4;p.c=pal[i%3];p.k=i%9?0:1;P.push(p)}})}
+/* ===== celebração: 'ano' (grande, 5 min), 'mes' (suave, 1 min), 'amor' (botão) ===== */
+function celebrate(k,n=new Date()){const mo=nm(n),big=k=='ano';
+$('mt').innerHTML=ink(big?[`Feliz ${Math.round(mo/12)} ${mo==12?'ano':'anos'},`,'meu amor']:k=='mes'?[`Feliz ${mo} meses,`,'meu amor']:['Eu te amo'],big?1.6:.3);
+S={t0:performance.now(),d:big?3e5:k=='mes'?6e4:25e3,b:big?.4:.2,w:big?9e3:0};
+$('msg').classList.toggle('big',big);
+if(!calm){if(big){burst(50);[[.3,.25,GOLD],[.72,.2,ROSE],[.5,.12,BLUSH]].forEach(([x,y,c],i)=>setTimeout(()=>fw(W*x,H*y,38,c),500+i*650));setTimeout(()=>heartForm(S.t0+9e3),900);setTimeout(()=>{fw(HC.x,HC.y,70,GOLD);burst(40)},9e3);[11e3,13500].forEach(t=>setTimeout(()=>fw(W*(.2+Math.random()*.6),H*(.12+Math.random()*.25),32,BLUSH),t))}else burst(k=='mes'?40:0)}
+setTimeout(()=>$('msg').classList.add('on'),big?300:200);setTimeout(()=>$('msg').classList.remove('on'),big?19e3:9e3);
+if(big){const c=document.querySelector('.card');c.classList.add('glow');setTimeout(()=>c.classList.remove('glow'),S.d)}}
 
-    // ===== Carta =====
-    function openLetter() {
-      document.getElementById('letterModal').classList.add('show');
-    }
-    function closeLetter() {
-      document.getElementById('letterModal').classList.remove('show');
-    }
-    document.getElementById('letterModal').addEventListener('click', function(e) {
-      if (e.target === this) closeLetter();
-    });
+/* ===== cartas ===== */
+document.querySelectorAll('.env').forEach(b=>b.onclick=()=>{b.classList.add('open');setTimeout(()=>{openL(b.dataset.c);b.classList.remove('open')},calm?0:700)});
+function openL(id){$('lt').innerHTML=$(id).innerHTML;$('lt').querySelectorAll('p').forEach((p,i)=>p.style.animationDelay=.3*i+'s');$('lm').classList.add('on');document.body.style.overflow='hidden';$('lm').querySelector('.paper').scrollTop=0}
+function closeL(){$('lm').classList.remove('on');document.body.style.overflow=''}
+$('lm').onclick=e=>{if(e.target.id=='lm')closeL()};addEventListener('keydown',e=>e.key=='Escape'&&closeL());
 
-    function openSurpriseModal() {
-      document.getElementById('surpriseModal').classList.add('show');
-    }
-    function closeSurpriseModal() {
-      document.getElementById('surpriseModal').classList.remove('show');
-    }
-    document.getElementById('surpriseModal').addEventListener('click', function(e) {
-      if (e.target === this) closeSurpriseModal();
-    });
-
-    // ===== Evento especial =====
-    function createConfetti() {
-      const confetti = document.createElement("div");
-      confetti.classList.add("confetti");
-      confetti.style.left = Math.random() * 100 + "vw";
-      confetti.style.backgroundColor =
-        ["red","yellow","blue","pink","purple","orange","green"][Math.floor(Math.random()*7)];
-      confetti.style.animationDuration = (Math.random()*3+2) + "s";
-      confetti.style.width = confetti.style.height = (Math.random()*8+5) + "px";
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 5000);
-    }
-
-    function startSpecialEvent(isAnniversary) {
-      const msg = document.getElementById("specialMessage");
-      msg.innerHTML = isAnniversary
-        ? "🎉 Feliz Aniversário de Namoro, meu amor! ❤️🎉"
-        : "🎊 Feliz nosso dia especial! 🎊";
-      msg.style.display = "block";
-
-      confettiInterval = setInterval(() => {
-        for (let i = 0; i < 5; i++) createConfetti();
-      }, 200);
-
-      setTimeout(() => {
-        clearInterval(confettiInterval);
-        msg.style.display = "none";
-        specialTriggered = false;
-      }, 300000);
-    }
-
-    function checkSpecialEvent(now) {
-      const day = now.getDate();
-      const month = now.getMonth(); 
-      const hour = now.getHours();
-      const minute = now.getMinutes();
-
-      if (day === 19 && hour === 15 && minute === 51 && !specialTriggered) {
-        const isAnniversary = (month === 9);
-        startSpecialEvent(isAnniversary);
-        specialTriggered = true;
-      }
-    }
-  </script>
+/* ===== mural: foto-01.jpg ... foto-58.jpg (legendas em CAP: número da foto → texto) ===== */
+const RT=[1.333, 0.749, 0.462, 0.75, 0.749, 0.467, 1.333, 0.562, 0.462, 0.75, 1.0, 1.333, 1.333, 1.902, 0.562, 1.354, 0.562, 0.749, 1.333, 1.333, 0.562, 1.333, 0.562, 0.75, 0.562, 0.562, 1.333, 0.749, 1.813, 1.778, 0.75, 0.462, 1.333, 1.079, 1.0, 0.562, 0.562, 0.749, 0.75, 1.333, 1.333, 0.562, 0.749, 1.333, 1.778, 0.562, 0.562, 1.333, 0.749, 0.749, 0.562, 1.778, 1.778, 0.75, 0.75, 1.333, 0.562, 1.0],CAP={14:'149,4 km entre nós',26:'nossa história',51:'te amo'};
+$('gal').innerHTML=RT.map((r,i)=>`<figure><div style="aspect-ratio:${r}"><img src="fotos/foto-${pad(i+1)}.jpg" alt="Foto ${i+1} do nosso álbum" loading="lazy"></div>${CAP[i+1]?`<figcaption>${CAP[i+1]}</figcaption>`:''}</figure>`).join('');
+$('gal').onclick=e=>{const i=e.target.closest('img');if(i){$('lb').querySelector('img').src=i.src;$('lb').classList.add('on')}};
+$('lb').onclick=()=>$('lb').classList.remove('on');addEventListener('keydown',e=>e.key=='Escape'&&$('lb').classList.remove('on'));
+tick();setInterval(tick,1000);requestAnimationFrame(loop);
+/* teste: abra index.html?festa (grande) ou ?festa=mes (suave) */
+const q=new URLSearchParams(location.search).get('festa');if(q!==null)setTimeout(()=>celebrate(q=='mes'?'mes':'ano'),900);
+</script>
 </body>
 </html>

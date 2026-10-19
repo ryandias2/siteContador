@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosso Amor</title>
+
+<!-- 🔥 Importação das fontes -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== RESET ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { 
+    width: 100%; 
+    min-height: 100%; 
+    font-family: 'Roboto', sans-serif; 
+    color: white; 
+    overflow-x: hidden; 
+    overflow-y: auto; 
+  }
+
+  /* ===== FUNDO MOSAICO ===== */
+  .background-mosaic {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    z-index: -1;
+  }
+  .background-mosaic img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+  }
+  .container h1 { font-size: 2.2rem; margin-bottom: 20px; }
+  #contador { font-size: 1.3rem; line-height: 2rem; white-space: pre-line; margin-bottom: 15px; }
+
+  /* 🔥 Correção da fonte */
+  .signature { 
+    font-family: 'Pacifico', cursive !important; 
+    font-size: 2rem; 
+    color: #FFD700; 
+    margin-top: 10px; 
+    text-align: center;
+  }
+  .message { 
+    font-family: 'Roboto', sans-serif !important; 
+    font-size: 1.1rem; 
+    margin-top: 10px; 
+    text-align: center;
+  }
+
+  /* ===== BOTÕES ===== */
+  .letter-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: pink;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .letter-button:active { transform: scale(0.95); }
+
+  /* ===== MODAL ===== */
+  .modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.7); z-index: 5;
+  }
+  .modal.show { display: flex; }
+  .modal-content {
+    background: white; color: black; padding: 30px;
+    border-radius: 15px; max-width: 500px; text-align: center;
+    font-size: 1.2rem; line-height: 1.8rem; overflow-y: auto; max-height: 80vh;
+  }
+  .modal button {
+    margin-top: 20px; background: #ff4d4d; border: none;
+    color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer;
+  }
+
+  /* ===== MENSAGEM ESPECIAL ===== */
+  .special-message {
+    font-size: 2rem; text-align: center; margin-top: 20px; display: none;
+    animation: glow 1s infinite alternate;
+  }
+  @keyframes glow { from { text-shadow: 0 0 10px yellow; } to { text-shadow: 0 0 20px red; } }
+
+  /* ===== CONFETES ===== */
+  .confetti {
+    position: fixed; width: 10px; height: 10px; top: -10px;
+    animation: fall linear forwards; z-index: 10;
+  }
+  @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+
+  /* ===== RESPONSIVIDADE ===== */
+  @media (max-width: 600px) {
+    .container { max-width: 600px; margin: 50px auto; padding: 20px; }
+    .container h1 { font-size: 2.2rem; }
+    #contador { font-size: 1.3rem; line-height: 2rem; }
+    .signature { font-size: 2rem; }
+    .message { font-size: 1.1rem; }
+    .letter-button { font-size: 1.2rem; padding: 12px 24px; }
+    .special-message { font-size: 2rem; }
+    .modal-content { font-size: 1.2rem; padding: 30px; }
+  }
+
+  @media (max-width: 400px) {
+    .container h1 { font-size: 2.2rem; }
+    #contador { font-size: 1.3rem; }
+    .signature { font-size: 2rem; }
+    .message { font-size: 1.1rem; }
+    .letter-button { font-size: 1.2rem; padding: 12px 24px; }
+    .special-message { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+  <!-- Fundo com mosaico -->
+  <div class="background-mosaic">
+    <img src="IMG-20250818-WA0023.jpg" alt="">
+    <img src="IMG-20250818-WA0024.jpg" alt="">
+    <img src="IMG-20250818-WA0025.jpg" alt="">
+    <img src="IMG-20250818-WA0026.jpg" alt="">
+    <img src="IMG-20250818-WA0027.jpg" alt="">
+    <img src="IMG-20250818-WA0028.jpg" alt="">
+    <img src="ImagemWhatsApp_1.jpg" alt="">
+    <img src="ImagemWhatsApp_2.jpg" alt="">
+    <img src="ImagemWhatsApp_3.jpg" alt="">
+  </div>
+
+  <!-- Contador -->
+  <div class="container" id="counter">
+    <h1>Estamos juntos há...</h1>
+    <div id="contador"></div>
+    <div class="signature">R + N</div>
+    <div class="message">Eu te amo infinitamente mais a cada segundo desse tempo nosso juntos. 💖</div>
+    <button class="letter-button" onclick="openLetter()">Um presentinho pra vc...</button>
+    <button class="letter-button" onclick="openSurpriseModal()">Um outro presentinho pra vc... 10 meses depois!</button>
+    <div style="text-align: center; margin-top: 10px;">
+      <a href="index2.html" style="font-size: 0.9rem; color: #ffd700; text-decoration: none;">Tenha um flashback</a>
+    </div>
+  </div>
+
+  <!-- Modal da carta -->
+  <div class="modal" id="letterModal">
+    <div class="modal-content">
+      Querida,  
+      <br><br>
+      Não há palavras que descrevam o quanto você significa para mim. Cada momento ao seu lado é especial, e nosso amor é o que ilumina meus dias. Obrigado por ser minha companheira, minha amiga e o amor da minha vida.  
+      <br><br>
+      Amo você mais do que tudo, e mal posso esperar por todos os dias que ainda vamos compartilhar juntos!  
+      <br><br>
+      Com todo o amor do mundo, seu Pastelzinho
+      <br>
+      <button onclick="closeLetter()">Fechar</button>
+    </div>
+  </div>
+
+  <div class="modal" id="surpriseModal">
+    <div class="modal-content" style="overflow-y: auto; max-height: 80vh; font-family: 'Pacifico', cursive;">
+        <p>
+        Pois bem, quem diria em... já fazem 10 meses que estamos juntos, esse site que foi feito no primeiro mês, que tinha 29 dias no contador quando iniciei ele já vai para dígitos duplos em meses, fico feliz e orgulhoso de tudo que passamos, e esse site representa nosso relacionamento, a imagem da formula 1, agora tem um mosaico de 9 ou 6 fotos, quando criei esse site, nunca havíamos brigados, e nesses 9 meses a mais, bom... fizemos isso bastante, e por duas vezes quase terminamos, mas assim como eu fiz agora com o site, nos renovamos, e aprendemos a passar por tudo juntos, a manter o dialogo, suportar a dor, pq ela é zero perto do amor que temos e alegria que teremos, eu dedico tudo a vc, pq no fim você é meu tudo, provavelmente lera isso antes das 15:51, uma chuva de confetes a aguarda, e enquanto ver eles caírem, pensa que cada um representa um momento difícil que cai e passa, eu amo muito você e quero sempre estar com vc, independe do que aconteçaa porque no fim, você é você, única, forte, porem feita pra mim, as vezes estressada, mas embora não admita, não vivo sem vc desse jeito, eu te amo pimpolha, se tudo der certo, teremos em menos de um mês fotos novas pra esse mural, mas independe do que ocorra, seremos igual esse site, sempre estará no ar, sempre terá atualizações, e nunca jamais será apagado, feliz 10 meses amor, eu te amo Nana. ❤️
+        </p>
+        <br>
+        <button onclick="closeSurpriseModal()">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Mensagem especial -->
+  <div class="special-message" id="specialMessage"></div>
+
+  <script>
+    const startDate = new Date("2024-10-19T15:51:00");
+    let specialTriggered = false;
+    let confettiInterval;
+
+    function pad(n) {
+      return n < 10 ? '0' + n : n;
+    }
+
+    function updateTime() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const years = new Date(diff).getUTCFullYear() - 1970;
+      const months = new Date(diff).getUTCMonth();
+      const days = new Date(diff).getUTCDate() - 1;
+      const hours = pad(new Date(diff).getUTCHours());
+      const minutes = pad(new Date(diff).getUTCMinutes());
+      const seconds = pad(new Date(diff).getUTCSeconds());
+
+      document.getElementById("contador").textContent =
+        `${years} anos, ${months} meses, ${days} dias\n${hours}:${minutes}:${seconds}`;
+
+      checkSpecialEvent(now);
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // ===== Carta =====
+    function openLetter() {
+      document.getElementById('letterModal').classList.add('show');
+    }
+    function closeLetter() {
+      document.getElementById('letterModal').classList.remove('show');
+    }
+    document.getElementById('letterModal').addEventListener('click', function(e) {
+      if (e.target === this) closeLetter();
+    });
+
+    function openSurpriseModal() {
+      document.getElementById('surpriseModal').classList.add('show');
+    }
+    function closeSurpriseModal() {
+      document.getElementById('surpriseModal').classList.remove('show');
+    }
+    document.getElementById('surpriseModal').addEventListener('click', function(e) {
+      if (e.target === this) closeSurpriseModal();
+    });
+
+    // ===== Evento especial =====
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.backgroundColor =
+        ["red","yellow","blue","pink","purple","orange","green"][Math.floor(Math.random()*7)];
+      confetti.style.animationDuration = (Math.random()*3+2) + "s";
+      confetti.style.width = confetti.style.height = (Math.random()*8+5) + "px";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
+
+    function startSpecialEvent(isAnniversary) {
+      const msg = document.getElementById("specialMessage");
+      msg.innerHTML = isAnniversary
+        ? "🎉 Feliz Aniversário de Namoro, meu amor! ❤️🎉"
+        : "🎊 Feliz nosso dia especial! 🎊";
+      msg.style.display = "block";
+
+      confettiInterval = setInterval(() => {
+        for (let i = 0; i < 5; i++) createConfetti();
+      }, 200);
+
+      setTimeout(() => {
+        clearInterval(confettiInterval);
+        msg.style.display = "none";
+        specialTriggered = false;
+      }, 300000);
+    }
+
+    function checkSpecialEvent(now) {
+      const day = now.getDate();
+      const month = now.getMonth(); 
+      const hour = now.getHours();
+      const minute = now.getMinutes();
+
+      if (day === 19 && hour === 15 && minute === 51 && !specialTriggered) {
+        const isAnniversary = (month === 9);
+        startSpecialEvent(isAnniversary);
+        specialTriggered = true;
+      }
+    }
+  </script>
+</body>
+</html>
