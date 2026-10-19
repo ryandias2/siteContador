@@ -49,8 +49,9 @@ h3{font-size:clamp(2.6rem,9vw,3.8rem);color:var(--r);font-weight:400;line-height
 .env i{position:absolute;bottom:9px;inset-inline:0;font-size:1.05rem}
 .env.open .flap{transform:rotateX(180deg)}.env.open .seal{opacity:0}
 .env em{position:absolute;top:-12px;right:-10px;background:var(--g);color:#fff;font-size:.9rem;padding:0 11px;border-radius:99px}
-.gal{columns:2;column-gap:16px;margin-top:36px;padding-inline:6px}
-@media(min-width:760px){.gal{columns:3;column-gap:22px}}
+/* MURAL: 3 colunas fixas (PC e celular), cada uma com um trecho seguido das fotos → mesma ordem em qualquer tela */
+.gal{display:flex;align-items:flex-start;gap:22px;margin-top:36px;padding-inline:6px}
+.col{flex:1;min-width:0}
 figure{break-inside:avoid;margin:0 0 20px;background:#fffdfb;padding:8px 8px 10px;box-shadow:0 12px 30px #c9566f33;rotate:var(--t,-1.2deg);cursor:zoom-in}
 figure:nth-child(3n+2){--t:1.4deg}figure:nth-child(5n){--t:-.5deg}
 figure div{background:linear-gradient(135deg,#fbd9e3,#f7e6d6);overflow:hidden}
@@ -93,9 +94,9 @@ section{padding-top:56px;padding-bottom:56px}
 .sub{font-size:1rem}
 .envs{gap:28px 14px;margin-top:28px}
 .env{width:calc(50% - 7px);max-width:190px;height:112px}
-.gal{column-gap:12px;margin-top:28px}
-figure{margin-bottom:14px;padding:6px 6px 8px}
-figcaption{font-size:1.4rem}
+.gal{gap:8px;margin:28px -8px 0;padding-inline:2px}
+figure{margin-bottom:10px;padding:4px 4px 6px}
+figcaption{font-size:1.15rem}
 .fs{font-size:1.9rem}
 #lm{padding:14px}
 .paper{padding:28px 20px 20px;font-size:1.15rem;line-height:1.7}
@@ -242,7 +243,15 @@ $('lm').onclick=e=>{if(e.target.id=='lm')closeL()};addEventListener('keydown',e=
 
 /* ===== mural: foto-01.jpg ... foto-58.jpg (legendas em CAP: número da foto → texto) ===== */
 const RT=[1.333, 0.749, 0.462, 0.75, 0.749, 0.467, 1.333, 0.562, 0.462, 0.75, 1.0, 1.333, 1.333, 1.902, 0.562, 1.354, 0.562, 0.749, 1.333, 1.333, 0.562, 1.333, 0.562, 0.75, 0.562, 0.562, 1.333, 0.749, 1.813, 1.778, 0.75, 0.462, 1.333, 1.079, 1.0, 0.562, 0.562, 0.749, 0.75, 1.333, 1.333, 0.562, 0.749, 1.333, 1.778, 0.562, 0.562, 1.333, 0.749, 0.749, 0.562, 1.778, 1.778, 0.75, 0.75, 1.333, 0.562, 1.0],CAP={14:'149,4 km entre nós',26:'nossa história',51:'te amo'};
-$('gal').innerHTML=RT.map((r,i)=>`<figure><div style="aspect-ratio:${r}"><img src="fotos/foto-${pad(i+1)}.jpg" alt="Foto ${i+1} do nosso álbum" loading="lazy"></div>${CAP[i+1]?`<figcaption>${CAP[i+1]}</figcaption>`:''}</figure>`).join('');
+const fig=(r,i)=>`<figure><div style="aspect-ratio:${r}"><img src="fotos/foto-${pad(i+1)}.jpg" alt="Foto ${i+1} do nosso álbum" loading="lazy" decoding="async"></div>${CAP[i+1]?`<figcaption>${CAP[i+1]}</figcaption>`:''}</figure>`;
+/* divide as fotos em 3 colunas de alturas parecidas usando só as proporções (RT) e uma largura de referência fixa:
+   a divisão é idêntica no PC e no celular, então a ordem das fotos é a mesma em qualquer tela */
+const T=[0];RT.forEach((r,i)=>T.push(T[i]+280/r+38+(CAP[i+1]?29:0)));
+let cut=[1,2,1e9];for(let a=1;a<RT.length;a++)for(let b=a+1;b<RT.length;b++){const m=Math.max(T[a],T[b]-T[a],T[RT.length]-T[b]);if(m<cut[2])cut=[a,b,m]}
+const E=[0,cut[0],cut[1],RT.length];
+$('gal').innerHTML=[0,1,2].map(c=>`<div class="col">${RT.slice(E[c],E[c+1]).map((r,k)=>fig(r,E[c]+k)).join('')}</div>`).join('');
+/* garantia: se o navegador deixar alguma foto "preguiçosa" sem carregar (card transparente), força o carregamento depois que a página abre */
+addEventListener('load',()=>setTimeout(()=>document.querySelectorAll('#gal img').forEach(i=>i.loading='eager'),2500));
 $('gal').onclick=e=>{const i=e.target.closest('img');if(i){$('lb').querySelector('img').src=i.src;$('lb').classList.add('on')}};
 $('lb').onclick=()=>$('lb').classList.remove('on');addEventListener('keydown',e=>e.key=='Escape'&&$('lb').classList.remove('on'));
 /* fundo: cada foto ganha uma div com a própria imagem (usada como preenchimento desfocado em tela em pé) */
